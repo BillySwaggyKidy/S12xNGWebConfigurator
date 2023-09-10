@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import TableHandle from '../../../../../components/utils/table/TableHandle/TableHandle.jsx';
-import { OthersDeviationsInitialsActive, OthersDeviationsInitialsP1, OthersDeviationsInitialsP2 } from '../../../../../components/utils/formInitialValues/others/OthersDeviationsInitials.jsx';
+import { OthersDeviationsInitialsActive, OthersDeviationsInitialsP1, OthersDeviationsInitialsP2 } from '../../../../../components/utils/initialValues/form/others/OthersDeviationsInitials.jsx';
 import { pick } from '../../../../../../utils/functions-utils.js';
 
 // this component represent all of the deviations sections of the others parts of the configuration
@@ -47,7 +47,7 @@ export default function OthersDeviations() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(othersDeviationsDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(othersDeviationsDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"others.deviations", conf:othersDeviationsDatas.current}));
             }
@@ -68,8 +68,8 @@ export default function OthersDeviations() {
                     linkedTo={"Activation"}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersDeviationsInitialsActive({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersDeviationsInitialsActive({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 <TableHandle
@@ -83,8 +83,8 @@ export default function OthersDeviations() {
                     tooltipLabels={tooltipLabelsMap}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersDeviationsInitialsP1({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersDeviationsInitialsP1({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 <TableHandle
@@ -98,8 +98,8 @@ export default function OthersDeviations() {
                     tooltipLabels={tooltipLabelsMap}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersDeviationsInitialsP2({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersDeviationsInitialsP2({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
             </div>

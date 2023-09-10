@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import FilterSection from "../../../../components/utils/filter/FilterSection.jsx";
-import { SelectCustomerFilterData } from "../../../../components/utils/FilterInitialValues.js";
+import { SelectCustomerFilterData } from "../../../../components/utils/initialValues/filter/FilterInitialValues.js";
 import TableDisplay from "../../../../components/utils/table/TableDisplay/TableDisplay.jsx";
 import CustomerRowsActions from "./customerAction/CustomerRowActions.jsx";
 import CustomerHeaderActions from "./customerAction/CustomerHeader/CustomerHeaderActions.jsx";

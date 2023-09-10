@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import FormBox from '../../../../../components/utils/FormBox/FormBox.jsx';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
-import { GeneralRelaysInitials, GeneralRelaysInitialsGroup } from '../../../../../components/utils/formInitialValues/general/GeneralRelaysInitials.jsx';
+import { GeneralRelaysInitials, GeneralRelaysInitialsGroup } from '../../../../../components/utils/initialValues/form/general/GeneralRelaysInitials.jsx';
 import { omit } from '../../../../../../utils/functions-utils.js';
 import { HandleModeStatus } from '../../../../../../utils/enums-utils.js';
 
@@ -23,7 +23,7 @@ export default function GeneralRelays() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(channelsRelaysDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(channelsRelaysDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"general.relays", conf:channelsRelaysDatas.current}));
             }

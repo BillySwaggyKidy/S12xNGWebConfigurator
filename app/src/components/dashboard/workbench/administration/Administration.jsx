@@ -5,7 +5,7 @@ import BreadcrumbLinks from "../../../utils/BreadcrumbLinks/BreadcrumbLinks.jsx"
 export default function Administration(props) {
     const location = useLocation();
     return (
-        <div className='w-full h-full flex flex-col items-center overflow-y-auto bg-admin'>
+        <div className='w-full h-full flex flex-col items-center overflow-y-auto bg-admin bg-cover'>
             <div className="w-full h-[5%] flex flex-row justify-center items-center bg-gray-300/50">
                 <BreadcrumbLinks urlPath={location.pathname}/>
             </div>

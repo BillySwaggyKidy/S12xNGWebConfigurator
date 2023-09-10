@@ -30,7 +30,7 @@ export default function SelectConfiguration() {
     return(
         <div className='flex flex-col min-w-full items-center min-h-full'>
             <div className="flex flex-col items-center w-full">
-                <div className="flex flex-col items-center bg-black rounded-md p-1 m-2">
+                <div className="flex flex-col items-center rounded-md p-1 m-2">
                     <h1 className="text-[3em] text-yellow-500 font-bold">Select configurations</h1>
                     {customerData && <h2 className="text-[1.5em] text-yellow-600 font-bold underline">{customerData.name}</h2>}
                 </div>

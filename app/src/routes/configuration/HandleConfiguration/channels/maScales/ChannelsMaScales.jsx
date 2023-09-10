@@ -3,7 +3,7 @@ import useListenerState from '../../../../../../utils/customHooks/useListenerSta
 import { useSelector, useDispatch } from 'react-redux';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import TableHandle from '../../../../../components/utils/table/TableHandle/TableHandle.jsx';
-import ChannelsMaScalesInitials from '../../../../../components/utils/formInitialValues/channels/ChannelsMaScalesInitials.jsx';
+import ChannelsMaScalesInitials from '../../../../../components/utils/initialValues/form/channels/ChannelsMaScalesInitials.jsx';
 
 // this component represent all of the ma scales sections of the channels
 export default function ChannelsMaScales() {
@@ -32,7 +32,7 @@ export default function ChannelsMaScales() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(channelsMaScalesDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(channelsMaScalesDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"channels.maScales", conf:channelsMaScalesDatas.current}));
             }
@@ -52,8 +52,8 @@ export default function ChannelsMaScales() {
                         columnLabels={channelsMaScalesLabels}
                         onChangeToParent={handleDatasChange}
                     >
-                        {(valueFields, handleChangeFunction, readOnly) =>
-                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                         }
                     </TableHandle>
                     <TableHandle
@@ -65,8 +65,8 @@ export default function ChannelsMaScales() {
                         onChangeToParent={handleDatasChange}
                         startIndex={9}
                     >
-                        {(valueFields, handleChangeFunction, readOnly) =>
-                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                         }
                     </TableHandle>
                 </div>
@@ -80,8 +80,8 @@ export default function ChannelsMaScales() {
                         onChangeToParent={handleDatasChange}
                         startIndex={17}
                     >
-                        {(valueFields, handleChangeFunction, readOnly) =>
-                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                         }
                     </TableHandle>
                     <TableHandle
@@ -93,8 +93,8 @@ export default function ChannelsMaScales() {
                         onChangeToParent={handleDatasChange}
                         startIndex={25}
                     >
-                        {(valueFields, handleChangeFunction, readOnly) =>
-                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                            ChannelsMaScalesInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                         }
                     </TableHandle>
                 </div>

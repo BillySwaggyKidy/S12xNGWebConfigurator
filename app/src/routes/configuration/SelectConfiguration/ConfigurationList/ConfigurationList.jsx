@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import FilterSection from "../../../../components/utils/filter/FilterSection.jsx";
-import { SelectConfigurationFilterData } from "../../../../components/utils/FilterInitialValues.js";
+import { SelectConfigurationFilterData } from "../../../../components/utils/initialValues/filter/FilterInitialValues.js";
 import { multiplesFilterCallback } from "../../../../../utils/functions-utils.js";
 import TableDisplay from "../../../../components/utils/table/TableDisplay/TableDisplay.jsx";
 import ConfigurationHeaderActions from "./configurationAction/ConfigurationHeader/ConfigurationHeaderAction.jsx";

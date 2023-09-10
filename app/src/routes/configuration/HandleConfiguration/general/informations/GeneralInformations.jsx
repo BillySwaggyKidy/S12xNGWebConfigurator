@@ -6,7 +6,7 @@ import {
     GeneralInfosInitialsConf, 
     GeneralInfosInitialsRS485, 
     GeneralInfosInitialsEthernetRJ45 
-} from '../../../../../components/utils/formInitialValues/general/GeneralInfosInitials.jsx';
+} from '../../../../../components/utils/initialValues/form/general/GeneralInfosInitials.jsx';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import { omit } from '../../../../../../utils/functions-utils.js';
 import { HandleModeStatus } from '../../../../../../utils/enums-utils.js';
@@ -48,7 +48,7 @@ export default function GeneralInformations() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(channelsInformationsDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(channelsInformationsDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"general.informations", conf:channelsInformationsDatas.current}));
             }
@@ -62,7 +62,7 @@ export default function GeneralInformations() {
             case 0:
                 cardTypeArray.push(
                     <FormBox key={"RS485"} id={"RS485"} title={"RS485"} boxValues={channelsInformationsDatas?.current.RS485} readOnly={isReadOnlyMode} onChangeToParent={handleDatasChange}>
-                        {(valueFields, handleChangeFunction, readOnly) => (
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) => (
                             <GeneralInfosInitialsRS485 valueFields={valueFields} handleChangeFunction={handleChangeFunction} readOnly={readOnly}/>
                         )}
                     </FormBox>
@@ -71,7 +71,7 @@ export default function GeneralInformations() {
             case 1:
                 cardTypeArray.push(
                     <FormBox key={"ethernetRJ45"} id={"ethernetRJ45"} title={"Ethernet RJ45"} boxValues={channelsInformationsDatas.current?.ethernetRJ45} readOnly={isReadOnlyMode} onChangeToParent={handleDatasChange}>
-                        {(valueFields, handleChangeFunction, readOnly) => (
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) => (
                             <GeneralInfosInitialsEthernetRJ45 valueFields={valueFields} handleChangeFunction={handleChangeFunction} readOnly={readOnly}/>
                         )}
                     </FormBox>
@@ -93,7 +93,7 @@ export default function GeneralInformations() {
             <div className='h-[90%] grid grid-cols-2 gap-y-4 gap-x-48 mt-4 px-24'>
                 <div className='grid grid-rows-2 gap-y-8'>
                     <FormBox key={"configurationName"} id={"configurationName"} title={"Configuration name"} boxValues={channelsInformationsDatas.current?.configurationName} onChangeToParent={handleDatasChange}>
-                        {(valueFields, handleChangeFunction, readOnly) => (
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) => (
                             <GeneralInfosInitialsName 
                                 valueFields={{...valueFields, suffixCode: dynamicParameterConfValues.accessCode}}
                                 handleChangeFunction={handleChangeFunction}
@@ -102,7 +102,7 @@ export default function GeneralInformations() {
                         )}
                     </FormBox>
                     <FormBox key={"parameterConf"} id={"parameterConf"} title={"General configuration"} boxValues={channelsInformationsDatas.current?.parameterConf} onChangeToParent={handleDatasChange}>
-                        {(valueFields, handleChangeFunction, readOnly) => (
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) => (
                             <GeneralInfosInitialsConf valueFields={valueFields} handleChangeFunction={handleChangeFunction} readOnly={isReadOnlyMode}/>
                         )}
                     </FormBox>

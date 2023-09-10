@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ManageAccountsFilterData} from "../../../../components/utils/FilterInitialValues.js";
+import {ManageAccountsFilterData} from "../../../../components/utils/initialValues/filter/FilterInitialValues.js";
 import FilterSection from "../../../../components/utils/filter/FilterSection.jsx";
 import { multiplesFilterCallback } from "../../../../../utils/functions-utils.js";
 import CircularProgress from '@mui/material/CircularProgress';

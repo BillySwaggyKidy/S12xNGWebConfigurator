@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { login } from "../../actions/rootActions.js";
-import { resetAuth } from "../../reducers/authentification.js";
 import { Button, OutlinedInput, InputAdornment, InputLabel, IconButton, LinearProgress } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -34,11 +33,6 @@ export default function Login() {
             setValues({ ...values, username: {...values.username, error: true }, password: {...values.password, error: true }});
         }
     }, [loading, online]) // the useEffect react for change from the loading, online and error
-
-    const goBack = () => { // this function purpose is to go back the main route and we reset the authentification reducer state
-        dispatch(resetAuth());
-        navigate("/");
-    }
 
     const handleChange = (prop) => (event) => { // this function handle the change from the inputs
         let errorInput = values[prop].error; // we get the error property from the input that have been changed

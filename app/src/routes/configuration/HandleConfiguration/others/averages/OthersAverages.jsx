@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import TableHandle from '../../../../../components/utils/table/TableHandle/TableHandle.jsx';
-import { OthersAveragesInitialsText, OthersAveragesInitialsCardChannels, OthersAveragesInitialsP1P2 } from '../../../../../components/utils/formInitialValues/others/OthersAveragesInitials.jsx';
+import { OthersAveragesInitialsText, OthersAveragesInitialsCardChannels, OthersAveragesInitialsP1P2 } from '../../../../../components/utils/initialValues/form/others/OthersAveragesInitials.jsx';
 import { pick } from '../../../../../../utils/functions-utils.js';
 
 // This case is particular, usually if we display a whole table with not so many row and fields or if we split the 32 rows of a tables into smaller tables with 8 rows each
@@ -83,7 +83,7 @@ export default function OthersAverages() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(othersAveragesDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(othersAveragesDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"others.averages", conf:othersAveragesDatas.current}));
             }
@@ -104,8 +104,8 @@ export default function OthersAverages() {
                     linkedTo={"Texts"}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersAveragesInitialsText({valueFields: pick(valueFields, columnNamesTableText), handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersAveragesInitialsText({valueFields: pick(valueFields, columnNamesTableText), handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 <TableHandle
@@ -118,8 +118,8 @@ export default function OthersAverages() {
                     linkedTo={"Channels"}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersAveragesInitialsCardChannels({valueFields:pick(valueFields, columnNamesTableCardChannels), handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersAveragesInitialsCardChannels({valueFields:pick(valueFields, columnNamesTableCardChannels), handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 <TableHandle
@@ -132,8 +132,8 @@ export default function OthersAverages() {
                     linkedTo={"Parameters"}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersAveragesInitialsP1P2({valueFields:pick(valueFields, columnNamesTableParameters), handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersAveragesInitialsP1P2({valueFields:pick(valueFields, columnNamesTableParameters), handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
             </div>

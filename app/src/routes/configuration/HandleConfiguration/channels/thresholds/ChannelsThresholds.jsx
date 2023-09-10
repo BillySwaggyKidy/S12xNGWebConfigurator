@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import TableHandle from '../../../../../components/utils/table/TableHandle/TableHandle.jsx';
-import { ChannelsThresholdInitialsP1, ChannelsThresholdInitialsP2 } from '../../../../../components/utils/formInitialValues/channels/ChannelsThresholdInitials.jsx';
+import { ChannelsThresholdInitialsP1, ChannelsThresholdInitialsP2 } from '../../../../../components/utils/initialValues/form/channels/ChannelsThresholdInitials.jsx';
 
 // this component represent all of the thresholds sections of the channels
 export default function ChannelsThresholds() {
@@ -24,7 +24,7 @@ export default function ChannelsThresholds() {
         ["value",
         `Threshold value between the low and high scale`],
         ["tempo",
-        "Threshold value between the low and high scale"]
+        "Value between 0 and 3600 seconds"],
     ]);
 
     // this function handle all of the data change made by the fields every Form fields components has an instance of this function as props
@@ -37,7 +37,7 @@ export default function ChannelsThresholds() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(channelsThresholdsDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(channelsThresholdsDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"channels.thresholds", conf:channelsThresholdsDatas.current}));
             }
@@ -57,8 +57,8 @@ export default function ChannelsThresholds() {
                     tooltipLabels={tooltipLabelsMap}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        ChannelsThresholdInitialsP1({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        ChannelsThresholdInitialsP1({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 <TableHandle
@@ -71,8 +71,8 @@ export default function ChannelsThresholds() {
                     tooltipLabels={tooltipLabelsMap}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        ChannelsThresholdInitialsP2({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        ChannelsThresholdInitialsP2({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
             </div>

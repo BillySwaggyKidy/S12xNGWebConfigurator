@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
 // this component represent a select field in a form
-export default function FormSelect({id, required, label, items, value, readOnly = false, onChange, variant="outlined", width="auto"})
+export default function FormSelect({id, required, label, items, value, readOnly = false, onChange, variant="outlined", width="auto", hitClip = false})
 {
     let arrayItems = [...items]; // we first make a new array of items and the rest of the items array
     const gotDefaultValue = (element) => element.value == 0;
@@ -33,30 +33,7 @@ export default function FormSelect({id, required, label, items, value, readOnly 
         }
     };
 
-    // this function handle the change of the select component
-    const handleChange = (event) => {
-        const text = event.target.value; // we first get the value of the select
-        setSelectValue(text); // we update the selectValue hook with the current value
-        let isValid;
-        // if the value is not "-- --" or the select field is not required for the form to be valid then
-        if (text != -1 || required == false)
-        {
-            isValid = true;
-            setErrorFormSelect(false); // we cancel or state that there is no error in the select field
-            setHelperText("     "); // we clear the error message
-        }
-        else
-        {
-            isValid = false;
-            setErrorFormSelect(true); // we set the error mode of the select
-            setHelperText("Please select an item"); // we display the error message
-        }
-        onChange(id, text, isValid); // either way, we then send the change to the parent using the onChange function props
-
-    }
-
-    // when the value props change, we run the useEffect
-    useEffect(()=>{
+    const sendChanges = (value) => {
         let isValid;
         // if the value is empty then we set the first value of the new items array or we just put the value from the props
         setSelectValue(value === "" ? arrayItems[0].value : value);
@@ -74,7 +51,18 @@ export default function FormSelect({id, required, label, items, value, readOnly 
             setHelperText("Please select an item"); // we display the error message
         }
         onChange(id, value, isValid); // either way, we then send the change to the parent using the onChange function props
-    },[value]);
+    };
+
+    // this function handle the change of the select component
+    const handleChange = (event) => {
+        const selectValue = event.target.value; // we first get the value of the select
+        sendChanges(selectValue);
+    }
+
+    // when the value props change, we run the useEffect
+    useEffect(()=>{
+        sendChanges(value);
+    },[value, hitClip]);
 
 
     return(

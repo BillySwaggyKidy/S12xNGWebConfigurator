@@ -4,7 +4,7 @@ let channelsCalibrationRowsDatas = {
     detOffset: 1000,
     gain: 2000,
     offset: 1000,
-    smooth: 1300,
+    smooth: 1000,
     isValid: false,
 };
 

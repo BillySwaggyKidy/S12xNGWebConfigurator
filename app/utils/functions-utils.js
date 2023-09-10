@@ -32,3 +32,10 @@ export const updateObjProp = (obj, propPath, value) => {
 
   !rest.length ? obj[head] = value : updateObjProp(obj[head], rest.join('.'), value);
 };
+
+// this function check if two objects has the same set of keys
+export const compareKeys = (a, b) => {
+  var aKeys = Object.keys(a).sort();
+  var bKeys = Object.keys(b).sort();
+  return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+}

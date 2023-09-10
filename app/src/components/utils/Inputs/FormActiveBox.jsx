@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // this component represent a custom field very similar to a checkbox except that it is displayed as a button with custom color support
-export default function FormActiveBox({id, required, label, colorVariantObject = {red: "bg-red-500",green: "bg-green-500"}, toggleItems, readOnly, value, onChange, variant="outlined", width="auto"})
+export default function FormActiveBox({id, required, label, colorVariantObject = {red: "bg-red-500",green: "bg-green-500"}, toggleItems, readOnly, value, onChange, variant="outlined", width="auto", hitClip = false})
 {
     const [activeBoxIndex, setActiveBoxIndex] = useState(toggleItems.findIndex((item)=>item.value == value)); // this hook represent the current value of the button
     const notifDesign = {
@@ -10,11 +10,15 @@ export default function FormActiveBox({id, required, label, colorVariantObject =
     const isTableMode = variant === "table"; // this check if the variant parameter value is table or not
     const bgColorVariants = colorVariantObject; // this object define the variant color of the background of the item
 
+    const sendChanges = (newActiveIndex) => {
+        setActiveBoxIndex(newActiveIndex); // we set the new index value to the hook
+        onChange(id, toggleItems[newActiveIndex].value, true); // we then send the new change to the parent using the onChange function props
+    };
+
     // this function handle the toggle action
     const handleToggle = () => {
         const newActiveIndex = 1 - activeBoxIndex; // we change the index value of the button, 1 to 0 or 0 to 1
-        setActiveBoxIndex(newActiveIndex); // we set the new index value to the hook
-        onChange(id, toggleItems[newActiveIndex].value, true); // we then send the new change to the parent using the onChange function props
+        sendChanges(newActiveIndex);
     }
 
     // this function check if the user holding the mouse down while being over the element
@@ -26,9 +30,8 @@ export default function FormActiveBox({id, required, label, colorVariantObject =
 
     useEffect(()=>{
         const newActiveIndex = toggleItems.findIndex((item)=>item.value == value);
-        setActiveBoxIndex(newActiveIndex); // we set the new index value to the hook
-        onChange(id, toggleItems[newActiveIndex].value, true); // we then send the new change to the parent using the onChange function props
-    }, [value])
+        sendChanges(newActiveIndex);
+    }, [value, hitClip])
 
 
     return (

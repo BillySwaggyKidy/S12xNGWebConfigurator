@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import TableHandle from '../../../../../components/utils/table/TableHandle/TableHandle.jsx';
-import { OthersGradientsInitialsCardChannels, OthersGradientsInitialsP1P2 } from '../../../../../components/utils/formInitialValues/others/OthersGradientsInitials.jsx';
+import { OthersGradientsInitialsCardChannels, OthersGradientsInitialsP1P2 } from '../../../../../components/utils/initialValues/form/others/OthersGradientsInitials.jsx';
 import { pick } from '../../../../../../utils/functions-utils.js';
 
 // this component represent all of the gradients sections of the others parts of the configuration
@@ -59,7 +59,7 @@ export default function OthersGradients() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(othersGradientsDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(othersGradientsDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"others.gradients", conf:othersGradientsDatas.current}));
             }
@@ -80,8 +80,8 @@ export default function OthersGradients() {
                     tooltipLabels={tooltipLabelsGeneralMap}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersGradientsInitialsCardChannels({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersGradientsInitialsCardChannels({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 <TableHandle
@@ -94,8 +94,8 @@ export default function OthersGradients() {
                     tooltipLabels={tooltipLabelsP1P2Map}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        OthersGradientsInitialsP1P2({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        OthersGradientsInitialsP1P2({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
             </div>

@@ -15,7 +15,7 @@ export default function FilterSection({filterInfos, hookUpdater}) {
     const [searchInfo, setSearchInfo] = useState(filterInfos[0]);
 
     const handleOpen = (event) => { // open the menu for additional items
-        // if there is at least one filter available (that asn't been added yet) then we can open the menu
+        // if there is at least one filter available (that asn't been  yet) then we can open the menu
         if (filterInfos.slice(1).filter(filter => !filter.added).length > 0) {
             setAnchorEl(event.currentTarget);
         }

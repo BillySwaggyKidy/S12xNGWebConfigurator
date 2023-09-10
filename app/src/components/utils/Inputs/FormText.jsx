@@ -2,54 +2,41 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 
 // this component represent a text field in a form
-export default function FormText({id, required, label, value, readOnly = false, condition, onChange, variant="outlined", width="auto"})
+export default function FormText({id, required, label, value, readOnly = false, condition, onChange, variant="outlined", width="auto", hitClip = false})
 {
     const [errorFormText, setErrorFormText] = useState(false); // this hook check if the select value is correct or not
     const [helperText, setHelperText] = useState(" "); // this hook represent the error message when the value is wrong
     const [textValue, setTextValue] = useState(value); // this hook represent the text value, we set it with the props value
     const isTableMode = variant === "table"; // this check if the variant paramter value is table or not
+
+    const sendChanges = (value) => {
+        setTextValue(value);
+        let isValid;
+        // if the text match the regex or is the text field is not required for the form to be valid then
+        if (new RegExp(condition).test(value) || required == false)
+        {
+            isValid = true;
+            setErrorFormText(false); // we cancel or state that there is no error in the text field
+            setHelperText(""); // we clear the error message
+        }
+        else
+        {
+            isValid = false;
+            setErrorFormText(true); // we set the error
+            setHelperText(value == "" ? "Empty field" : "Incorrect input"); // if the text is empty then we indicate that the text is empty or else we indicate that the input is incorrect
+        }
+        onChange(id, value, isValid); // either way, we then send the change to the parent using the onChange function props
+    };
     
     // this function handle the change of the text component
     const handleChange = (event) => {
         const text = event.target.value;
-        setTextValue(text);
-        let isValid;
-        // if the text match the regex or is the text field is not required for the form to be valid then
-        if (new RegExp(condition).test(text) || required == false)
-        {
-            isValid = true;
-            setErrorFormText(false); // we cancel or state that there is no error in the text field
-            setHelperText(""); // we clear the error message
-        }
-        else
-        {
-            isValid = false;
-            setErrorFormText(true); // we set the error
-            setHelperText(text == "" ? "Empty field" : "Incorrect input"); // if the text is empty then we indicate that the text is empty or else we indicate that the input is incorrect
-        }
-        onChange(id, text, isValid); // either way, we then send the change to the parent using the onChange function props
+        sendChanges(text);
     }
 
     useEffect(()=>{
-        let isValid;
-        const text = value; // if the textValue is different than the value props then we set the textValue or else jusrt the value props
-        setTextValue(text);
-        // if the text match the regex or is the text field is not required for the form to be valid then
-        if (new RegExp(condition).test(text) || required == false)
-        {
-            isValid = true;
-            setErrorFormText(false); // we cancel or state that there is no error in the text field
-            setHelperText(""); // we clear the error message
-        }
-        else
-        {
-            isValid = false;
-            setErrorFormText(true); // we set the error
-            setHelperText(text == "" ? "Empty field" : "Incorrect input"); // if the text is empty then we indicate that the text is empty or else we indicate that the input is incorrect
-        }
-        onChange(id, text, isValid); // either way, we then send the change to the parent using the onChange function props
-        
-    },[value]);
+        sendChanges(value);
+    },[value, hitClip]);
 
     return (
         <TextField 

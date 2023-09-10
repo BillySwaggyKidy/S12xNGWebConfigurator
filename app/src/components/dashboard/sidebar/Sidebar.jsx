@@ -18,7 +18,7 @@ export default function Sidebar() {
             (handleMode && configurationData && snapshotData) ? <ConfigurationSidebarItems/> : <SelectSidebarItems/>
         );
     }
-    console.log(`${handleMode == "Edit"} && ${userInfo.profile == "Configurator"} && ${configurationData}`);
+
     return (
         <Paper elevation={2} data-testid="sidebar" id="sidebar" className="flex flex-col items-start justify-start overflow-x-hidden z-1 w-[14%] h-full bg-slate-400 transition-[width] linear delay-75" square>
             <div className="flex flex-col items-start justify-start w-full h-full whitespace-nowrap pl-2">

@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import TableHandle from '../../../../../components/utils/table/TableHandle/TableHandle.jsx';
-import ChannelsInfosRowInitials from '../../../../../components/utils/formInitialValues/channels/ChannelsInfosInitials.jsx';
+import ChannelsInfosRowInitials from '../../../../../components/utils/initialValues/form/channels/ChannelsInfosInitials.jsx';
 
 // this component represent all of the informations sections of the channels
 export default function ChannelsInformations() {
@@ -20,7 +20,7 @@ export default function ChannelsInformations() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(channelsInformationsDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(channelsInformationsDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"channels.informations", conf:channelsInformationsDatas.current}));
             }
@@ -53,8 +53,8 @@ export default function ChannelsInformations() {
                         tooltipLabels={tooltipLabelsMap}
                         onChangeToParent={handleDatasChange}
                     >
-                        {(valueFields, handleChangeFunction, readOnly) => 
-                            ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) => 
+                            ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                         }
                     </TableHandle>
                     <TableHandle
@@ -67,8 +67,8 @@ export default function ChannelsInformations() {
                         onChangeToParent={handleDatasChange}
                         startIndex={9}
                     >
-                        {(valueFields, handleChangeFunction, readOnly) =>
-                            ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                            ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                         }
                     </TableHandle>
                 </div>
@@ -83,8 +83,8 @@ export default function ChannelsInformations() {
                         onChangeToParent={handleDatasChange}
                         startIndex={17}
                     >
-                        {(valueFields, handleChangeFunction, readOnly) =>
-                            ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                        {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                            ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                         }
                     </TableHandle>
                 <TableHandle
@@ -97,8 +97,8 @@ export default function ChannelsInformations() {
                     onChangeToParent={handleDatasChange}
                     startIndex={25}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        ChannelsInfosRowInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 </div>

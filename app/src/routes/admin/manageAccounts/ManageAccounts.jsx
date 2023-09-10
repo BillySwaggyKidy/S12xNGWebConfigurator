@@ -29,7 +29,7 @@ export default function ManageAccounts() {
     return(
         <div className='flex flex-col min-w-full items-center min-h-full'>
             <div className="flex flex-col items-center w-full">
-                <div className="flex flex-col items-center bg-black rounded-md p-1 m-2">
+                <div className="flex flex-col items-center rounded-md p-1 m-2">
                     <h1 className="text-[3em] text-red-500 font-bold">Manage accounts</h1>
                 </div>
             </div>

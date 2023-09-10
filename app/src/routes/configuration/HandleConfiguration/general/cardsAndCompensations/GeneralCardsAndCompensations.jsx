@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveChangesToOneConfiguration } from '../../../../../actions/rootActions.js';
 import TableHandle from '../../../../../components/utils/table/TableHandle/TableHandle.jsx';
-import GeneralCardCompensationsInitials from '../../../../../components/utils/formInitialValues/general/GeneralCardCompensationsInitials.jsx';
+import GeneralCardCompensationsInitials from '../../../../../components/utils/initialValues/form/general/GeneralCardCompensationsInitials.jsx';
 
 // this component represent all of the cards and compensations sections of the general configuration
 export default function GeneralCardsAndCompensations() {
@@ -33,7 +33,7 @@ export default function GeneralCardsAndCompensations() {
     useEffect(() => {
         return () => {
             // if the user is in edit mode and the object containg the datas of this part of the configuration is not null (thus an empty object) 
-            if (handleMode == "Edit" && Object.keys(generalCardsAndCompensationsDatas.current).length > 0) {
+            if (handleMode == "Edit" && Object.keys(generalCardsAndCompensationsDatas.current).length > 0 && snapshotData) {
                 // we save the part of data that the user has edited to the correct configuration in the server
                 dispatch(saveChangesToOneConfiguration({snapshotId:snapshotData._id, path:"general.cardsAndCompensations", conf:generalCardsAndCompensationsDatas.current}));
             }
@@ -52,8 +52,8 @@ export default function GeneralCardsAndCompensations() {
                     tooltipLabels={tooltipLabelsMap}
                     onChangeToParent={handleDatasChange}
                 >
-                    {(valueFields, handleChangeFunction, readOnly) =>
-                        GeneralCardCompensationsInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly})
+                    {(valueFields, handleChangeFunction, readOnly, hitClip) =>
+                        GeneralCardCompensationsInitials({valueFields:valueFields, handleChangeFunction:handleChangeFunction, readOnly:readOnly, hitClip:hitClip})
                     }
                 </TableHandle>
                 <div className='bg-slate-400 p-2 mt-6 rounded-md'>
